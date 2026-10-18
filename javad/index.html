@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Java Calculator</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f4f8;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            margin: auto;
+            max-width: 300px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px #aaa;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #02167a;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Java Calculator</h2>
+
+        <input type="number" id="a" placeholder="First number">
+        <input type="number" id="b" placeholder="Second number">
+
+        <select id="op">
+            <option value="add">Addition (+)</option>
+            <option value="sub">Subtraction (-)</option>
+            <option value="mul">Multiplication (*)</option>
+            <option value="div">Division (/)</option>
+        </select>
+
+        <button onclick="calculate()">Calculate</button>
+        <h3 id="result"></h3>
+    </div>
+
+    <script>
+        async function calculate() {
+            const a = document.getElementById("a").value;
+            const b = document.getElementById("b").value;
+            const op = document.getElementById("op").value;
+
+            if (a === "" || b === "") {
+                document.getElementById("result").textContent =
+                    "Enter both numbers";
+                return;
+            }
+
+            const response = await fetch(
+                `/calculate?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}&op=${op}`
+            );
+
+            document.getElementById("result").textContent =
+                await response.text();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f2f4f8;
+    padding:30px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:#fff;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+    color:#333;
+}
+
+form{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+.form-group input,
+.form-group select{
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:15px;
+}
+
+.full{
+    grid-column:1/3;
+}
+
+button{
+    padding:12px;
+    background:#02167a;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#e40943;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:30px;
+}
+
+table th,table td{
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:center;
+}
+
+table th{
+    background:#02167a;
+    color:white;
+}
+
+.deleteBtn{
+    background:#dc3545;
+    padding:8px 12px;
+    border:none;
+    color:white;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+.deleteBtn:hover{
+    background:#b52b39;
+}
+
+@media(max-width:700px){
+
+form{
+    grid-template-columns:1fr;
+}
+
+.full{
+    grid-column:1;
+}
+
+}
+</style>
+</head>
+<body>
+    <div class="container">
+    <form id="student-form">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Sem</label>
+            <select id="sem" required>
+            <option value="">Select Sem</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Branch</label>
+            <select id="branch" required>
+            <option value="">Select Branch</option>
+            <option>CE</option>
+            <option>IT</option>
+            <option>EC</option>
+            <option>CHEMICAL</option>
+            <option>IC</option>
+            </select>
+        </div>
+        <div class="form-group full">
+        <label>Phone Number</label>
+        <input type="tel" id="contact" required pattern="[0-9]{10}">
+        </div>
+        <div class="full">
+        <button type="submit">Add Student</button>
+        </div>
+    </form>
+
+    <table id="student-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Sem</th>
+                <th>Branch</th>
+                <th>Contact no.</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    </div>
+    <script>
+        const form = document.getElementById("student-form");
+        const tbody = document.querySelector("#student-table tbody");
+        form.addEventListener("submit",function(e){
+            e.preventDefault();
+           const name=document.getElementById("name").value;
+           const sem=document.getElementById("sem").value;
+            const branch=document.getElementById("branch").value;
+           const contact=document.getElementById("contact").value;
+            
+           const row=document.createElement("tr");
+            row.innerHTML=`
+            <td>${name}</td>
+            <td>${sem}</td>
+            <td>${branch}</td>
+            <td>${contact}</td>
+            <td><button class="removeButton">remove</button></td>
+            `;
+            tbody.appendChild(row);
+
+            form.reset();
+            row.querySelector(".removeButton").addEventListener("click",function(){
+    row.remove();
+})
+})
+
+ 
+        
+    </script>
+</body>
+</html>
